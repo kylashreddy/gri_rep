@@ -81,7 +81,7 @@ export default function GRINOVA(){
             We've received your application and will send confirmation details to your email shortly.
           </p>
           <div style={{display:'flex', gap:16, justifyContent:'center', flexWrap:'wrap'}}>
-            <Link to="/" className="btn">Back to Home</Link>
+            <Link to="/grinova-upload" className="btn">Upload Presentation</Link>
             <button onClick={() => setSubmitted(false)} className="btn ghost">Register Another Team</button>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function GRINOVA(){
 
   return (
     <div className="grid" style={{gap:32}}>
-      {/* Header Section */}
+      {/* Hero Section */}
       <section style={{
         textAlign:'center', 
         padding:'40px 20px 20px',
@@ -100,8 +100,8 @@ export default function GRINOVA(){
         padding:'50px 32px 30px',
         borderBottom: '3px solid #1f2937'
       }}>
-        <Link to="/" style={{display:'inline-flex', alignItems:'center', gap:8, color:'var(--muted)', marginBottom:24}}>
-          <FiArrowLeft /> Back to Home
+        <Link to="/participate" style={{display:'inline-flex', alignItems:'center', gap:8, color:'var(--muted)', marginBottom:24}}>
+          <FiArrowLeft /> Back to Participate
         </Link>
         <div style={{
           color:'#111827',
@@ -114,106 +114,54 @@ export default function GRINOVA(){
           fontSize:'clamp(18px, 2.5vw, 24px)', color:'#4b5563', 
           maxWidth:700, margin:'0 auto', lineHeight:1.5
         }}>
-          Ideathon for Rural Impact • Jain University
+          Ideathon for Rural Impact
         </p>
-        <div style={{
-          display:'flex', justifyContent:'center', gap:24, flexWrap:'wrap',
-          marginTop:32
-        }}>
-          <div style={{display:'flex', alignItems:'center', gap:8, color:'#6b7280'}}>
-            <FiCalendar /> Feb 24 - March 10, 2026
-          </div>
-          <div style={{display:'flex', alignItems:'center', gap:8, color:'#6b7280'}}>
-            <FiMapPin /> Jain University, Bangalore
-          </div>
-          <div style={{display:'flex', alignItems:'center', gap:8, color:'#6b7280'}}>
-            <FiUsers /> Team of 3-5
-          </div>
-        </div>
       </section>
 
-      {/* About & Schedule */}
+      {/* About Section */}
       <section style={{maxWidth:900, margin:'0 auto', width:'90%'}}>
         <div className="card" style={{padding:40, background:'#ffffff', border:'1px solid #e5e7eb'}}>
-          <h2 style={{marginBottom:24, textAlign:'center', color:'#111827'}}>About GRINOVA</h2>
-          <div style={{display:'grid', gap:24}}>
-            <div>
-              <h3 style={{marginBottom:12, color:'#1f2937', display:'flex', alignItems:'center', gap:8}}>
-                What is GRINOVA?
-              </h3>
-              <p style={{lineHeight:1.7, color:'#4b5563', margin:0}}>
-GRINOVA (Grassroots Innovation Ideathon) is a flagship event organized by GRI (Center of Grassroots Research and Innovation) at Jain University. It's a platform for students to address real-world challenges faced by rural communities through innovation, technology, and sustainable solutions.
-              </p>
-            </div>
-            
-            {/* Problem Domains */}
-            <div>
-              <h3 style={{marginBottom:12, color:'#1f2937'}}>
-                Problem Statement Domains
-              </h3>
-              <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(180px, 1fr))', gap:12}}>
-{[
-                  { domain: 'Agriculture', icon: '🌾', desc: 'Sustainable farming & rural livelihood' },
-                  { domain: 'Eldercare', icon: '👴', desc: 'Healthcare solutions for elderly in rural areas' },
-                  { domain: 'Hydroponics', icon: '🪴', desc: 'Soilless farming & urban agriculture' },
-                  { domain: 'Healthcare', icon: '🏥', desc: 'Rural health & wellness innovations' },
-                  { domain: 'Sericulture', icon: '🐛', desc: 'Silk farming & textile innovations for rural economy' }
-                ].map((item, i) => (
-                  <div key={i} style={{
-                    padding:'16px', 
-                    background:'#f9fafb',
-                    borderRadius:8,
-                    border:'1px solid #e5e7eb'
-                  }}>
-                    <div style={{fontSize:24, marginBottom:8}}>{item.icon}</div>
-                    <div style={{fontWeight:600, color:'#1f2937', marginBottom:4}}>{item.domain}</div>
-                    <div style={{fontSize:12, color:'#6b7280'}}>{item.desc}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 style={{marginBottom:12, color:'#1f2937'}}>
-                Event Schedule
-              </h3>
-              <div style={{display:'grid', gap:12}}>
-{[
-                  { date: 'February 24, 2026', event: 'Registration Opens' },
-                  { date: 'March 10, 2026', event: 'Registration Closes' },
-                  { date: 'March 12, 2026', event: 'Ideathon Event' },
-                ].map((item, i) => (
-                  <div key={i} style={{
-                    display:'flex', justifyContent:'space-between', 
-                    padding:'12px 16px', background:'#f9fafb', borderRadius:8,
-                    flexWrap:'wrap', gap:8, border:'1px solid #e5e7eb'
-                  }}>
-                    <span style={{fontWeight:600, color:'#1f2937'}}>{item.event}</span>
-                    <span style={{color:'#6b7280'}}>{item.date}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h3 style={{marginBottom:12, color:'#1f2937', display:'flex', alignItems:'center', gap:8}}>
-                <FiAward /> Prizes & Rewards
-              </h3>
+          <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(250px, 1fr))', gap:32}}>
+            <div style={{display:'flex', gap:16, alignItems:'flex-start'}}>
               <div style={{
-                padding:'24px',
-                background:'#f3f4f6',
-                borderRadius:12,
-                border:'1px solid #e5e7eb',
-                textAlign:'center'
+                width:48, height:48, borderRadius:12,
+                background:'#1f2937', color:'white',
+                display:'flex', alignItems:'center', justifyContent:'center',
+                fontSize:24, flexShrink:0
               }}>
-                <div style={{fontSize:36, fontWeight:800, color:'#1f2937', marginBottom:8}}>
-                  Rs.25,000
-                </div>
-                <div style={{fontSize:16, color:'#4b5563', fontWeight:600, marginBottom:4}}>
-                  Prize Pool
-                </div>
-                <div style={{fontSize:14, color:'#6b7280'}}>
-                  Top 10 Teams will be awarded
-                </div>
+                <FiCalendar />
+              </div>
+              <div>
+                <h3 style={{fontSize:18, fontWeight:600, marginBottom:4, color:'#111827'}}>Date</h3>
+                <p style={{color:'#6b7280', margin:0}}>March 2026</p>
+              </div>
+            </div>
+            <div style={{display:'flex', gap:16, alignItems:'flex-start'}}>
+              <div style={{
+                width:48, height:48, borderRadius:12,
+                background:'#1f2937', color:'white',
+                display:'flex', alignItems:'center', justifyContent:'center',
+                fontSize:24, flexShrink:0
+              }}>
+                <FiMapPin />
+              </div>
+              <div>
+                <h3 style={{fontSize:18, fontWeight:600, marginBottom:4, color:'#111827'}}>Venue</h3>
+                <p style={{color:'#6b7280', margin:0}}>Jain University, Bangalore</p>
+              </div>
+            </div>
+            <div style={{display:'flex', gap:16, alignItems:'flex-start'}}>
+              <div style={{
+                width:48, height:48, borderRadius:12,
+                background:'#1f2937', color:'white',
+                display:'flex', alignItems:'center', justifyContent:'center',
+                fontSize:24, flexShrink:0
+              }}>
+                <FiUsers />
+              </div>
+              <div>
+                <h3 style={{fontSize:18, fontWeight:600, marginBottom:4, color:'#111827'}}>Team Size</h3>
+                <p style={{color:'#6b7280', margin:0}}>4 Members</p>
               </div>
             </div>
           </div>
@@ -223,12 +171,28 @@ GRINOVA (Grassroots Innovation Ideathon) is a flagship event organized by GRI (C
       {/* Registration Form */}
       <section style={{maxWidth:700, margin:'0 auto', width:'90%', paddingBottom:60}}>
         <div className="card" style={{padding:40, background:'#ffffff', border:'1px solid #e5e7eb'}}>
-          <h2 style={{marginBottom:8, textAlign:'center', color:'#111827'}}>Register Now</h2>
+          <h2 style={{marginBottom:8, textAlign:'center', color:'#111827'}}>Register for GRINOVA</h2>
           <p style={{textAlign:'center', color:'#6b7280', marginBottom:32}}>
-            Fill in your details to participate in GRINOVA 2026
+            Join us for a 24-hour ideathon focused on rural innovation
           </p>
           
           <form onSubmit={handleSubmit} style={{display:'grid', gap:24}}>
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
+                Team Name *
+              </label>
+              <input
+                type="text"
+                name="teamName"
+                required
+                value={formData.teamName}
+                onChange={handleChange}
+                placeholder="Enter your team name"
+                style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
+                  borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
+              />
+            </div>
+
             <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(250px, 1fr))', gap:20}}>
               <div>
                 <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
@@ -240,7 +204,7 @@ GRINOVA (Grassroots Innovation Ideathon) is a flagship event organized by GRI (C
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Enter your full name"
+                  placeholder="Team leader's full name"
                   style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
                     borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
                 />
@@ -278,97 +242,47 @@ GRINOVA (Grassroots Innovation Ideathon) is a flagship event organized by GRI (C
                     borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
                 />
               </div>
-            </div>
-
-            <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(250px, 1fr))', gap:20}}>
-              <div>
-                <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
-                  Course/Stream
-                </label>
-                <input
-                  type="text"
-                  name="course"
-                  value={formData.course}
-                  onChange={handleChange}
-                  placeholder="e.g., B.Tech, B.Sc, MBA"
-                  style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
-                    borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
-                />
-              </div>
-              <div>
-                <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
-                  Year of Study
-                </label>
-                <select
-                  name="year"
-                  value={formData.year}
-                  onChange={handleChange}
-                  style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
-                    borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s',
-                    background:'white'}}
-                >
-                  <option value="">Select Year</option>
-                  <option value="1">1st Year</option>
-                  <option value="2">2nd Year</option>
-                  <option value="3">3rd Year</option>
-                  <option value="4">4th Year</option>
-                </select>
-              </div>
-            </div>
-
-            <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(250px, 1fr))', gap:20}}>
-              <div>
-                <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
-                  Team Name *
-                </label>
-                <input
-                  type="text"
-                  name="teamName"
-                  required
-                  value={formData.teamName}
-                  onChange={handleChange}
-                  placeholder="Your team name"
-                  style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
-                    borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
-                />
-              </div>
               <div>
                 <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
                   Team Size *
                 </label>
                 <select
                   name="teamSize"
+                  required
                   value={formData.teamSize}
                   onChange={handleChange}
-                  required
                   style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
-                    borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s',
-                    background:'white'}}
+                    borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
                 >
-                  <option value="4">4 Members</option>
+                  <option value="2">2 Members</option>
                   <option value="3">3 Members</option>
-                  <option value="5">5 Members</option>
+                  <option value="4">4 Members</option>
                 </select>
               </div>
             </div>
 
-            {/* Dynamic Team Member Names */}
-            {parseInt(formData.teamSize) > 1 && (
-              <div style={{marginTop: 24}}>
-                <label style={{display:'block', marginBottom: 12, fontWeight: 600, fontSize: 16, color: '#374151'}}>
-                  Team Member Names
-                </label>
-                <div style={{display:'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 16}}>
+            {/* Dynamic Team Members Fields */}
+            {teamMembers.length > 0 && (
+              <div style={{
+                padding: 20,
+                background: '#f9fafb',
+                borderRadius: 12,
+                border: '1px solid #e5e7eb'
+              }}>
+                <h3 style={{fontSize:16, fontWeight:600, marginBottom:16, color:'#111827'}}>
+                  Team Members (excluding team leader)
+                </h3>
+                <div style={{display:'grid', gap:16}}>
                   {teamMembers.map((member, index) => (
                     <div key={index}>
-                      <label style={{display:'block', marginBottom: 8, fontWeight: 500, fontSize: 14, color: '#6b7280'}}>
-                        Member {index + 2} Name
+                      <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
+                        Team Member {index + 1} Name
                       </label>
                       <input
                         type="text"
                         value={member}
                         onChange={(e) => handleTeamMemberChange(index, e.target.value)}
-                        placeholder={`Enter team member ${index + 2} name`}
+                        placeholder={`Enter team member ${index + 1} name`}
                         style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
                           borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
                       />
@@ -378,38 +292,78 @@ GRINOVA (Grassroots Innovation Ideathon) is a flagship event organized by GRI (C
               </div>
             )}
 
+            <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(250px, 1fr))', gap:20}}>
+              <div>
+                <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
+                  Course/Stream *
+                </label>
+                <input
+                  type="text"
+                  name="course"
+                  required
+                  value={formData.course}
+                  onChange={handleChange}
+                  placeholder="e.g., Engineering, Science, Management"
+                  style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
+                    borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
+                />
+              </div>
+              <div>
+                <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
+                  Year of Study *
+                </label>
+                <select
+                  name="year"
+                  required
+                  value={formData.year}
+                  onChange={handleChange}
+                  style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
+                    borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
+                >
+                  <option value="">Select Year</option>
+                  <option value="1st Year">1st Year</option>
+                  <option value="2nd Year">2nd Year</option>
+                  <option value="3rd Year">3rd Year</option>
+                  <option value="4th Year">4th Year</option>
+                  <option value="PG">Post Graduate</option>
+                </select>
+              </div>
+            </div>
+
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
-                Problem Statement Domain *
+                Problem Domain *
               </label>
               <select
                 name="problemDomain"
+                required
                 value={formData.problemDomain}
                 onChange={handleChange}
-                required
                 style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
-                  borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s',
-                  background:'white'}}
+                  borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
               >
-<option value="">Select a Domain</option>
-                <option value="Agriculture">Agriculture</option>
-                <option value="Eldercare">Eldercare</option>
-                <option value="Hydroponics">Hydroponics</option>
-                <option value="Healthcare">Healthcare</option>
-                <option value="Sericulture">Sericulture</option>
+                <option value="">Select a Domain</option>
+                <option value="Agriculture & Rural Development">Agriculture & Rural Development</option>
+                <option value="Healthcare & Sanitation">Healthcare & Sanitation</option>
+                <option value="Education & Skill Development">Education & Skill Development</option>
+                <option value="Sustainable Energy">Sustainable Energy</option>
+                <option value="Water Resource Management">Water Resource Management</option>
+                <option value="Financial Inclusion">Financial Inclusion</option>
+                <option value="Smart Villages">Smart Villages</option>
+                <option value="Other">Other</option>
               </select>
             </div>
 
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
-                Brief Idea Description *
+                Idea Description *
               </label>
               <textarea
                 name="ideaDescription"
                 required
                 value={formData.ideaDescription}
                 onChange={handleChange}
-                placeholder="Describe your innovative idea for rural impact (max 500 words)"
+                placeholder="Briefly describe your innovation idea for rural impact"
                 rows={4}
                 style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
                   borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s',
@@ -419,7 +373,7 @@ GRINOVA (Grassroots Innovation Ideathon) is a flagship event organized by GRI (C
 
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
-                Why do you want to participate? *
+                Motivation *
               </label>
               <textarea
                 name="motivation"
