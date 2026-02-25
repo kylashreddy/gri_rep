@@ -9,21 +9,34 @@ export default function GRINOVA(){
     name: '',
     email: '',
     phone: '',
-    college: '',
     course: '',
     year: '',
     teamName: '',
-    teamSize: '3',
+    teamSize: '4',
     problemDomain: '',
     ideaDescription: '',
     motivation: ''
   })
+  const [teamMembers, setTeamMembers] = useState(['', '', '']) // 3 additional members for team of 4
   const [submitted, setSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
+    
+    // When team size changes, update team members array
+    if (name === 'teamSize') {
+      const size = parseInt(value)
+      const additionalMembers = size - 1 // minus 1 for team leader
+      setTeamMembers(Array(additionalMembers).fill(''))
+    }
+  }
+
+  const handleTeamMemberChange = (index, value) => {
+    const updatedMembers = [...teamMembers]
+    updatedMembers[index] = value
+    setTeamMembers(updatedMembers)
   }
 
   const handleSubmit = async (e) => {
@@ -34,6 +47,7 @@ export default function GRINOVA(){
       // Submit to Firebase Firestore - Grinova collection
       await addDoc(collection(db, 'Grinova'), {
         ...formData,
+        teamMembers: teamMembers,
         timestamp: serverTimestamp()
       })
       
@@ -264,21 +278,6 @@ GRINOVA (Grassroots Innovation Ideathon) is a flagship event organized by GRI (C
                     borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
                 />
               </div>
-              <div>
-                <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
-                  College/University *
-                </label>
-                <input
-                  type="text"
-                  name="college"
-                  required
-                  value={formData.college}
-                  onChange={handleChange}
-                  placeholder="Your college name"
-                  style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
-                    borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
-                />
-              </div>
             </div>
 
             <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(250px, 1fr))', gap:20}}>
@@ -320,11 +319,12 @@ GRINOVA (Grassroots Innovation Ideathon) is a flagship event organized by GRI (C
             <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(250px, 1fr))', gap:20}}>
               <div>
                 <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
-                  Team Name (Optional)
+                  Team Name *
                 </label>
                 <input
                   type="text"
                   name="teamName"
+                  required
                   value={formData.teamName}
                   onChange={handleChange}
                   placeholder="Your team name"
@@ -345,12 +345,38 @@ GRINOVA (Grassroots Innovation Ideathon) is a flagship event organized by GRI (C
                     borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s',
                     background:'white'}}
                 >
-                  <option value="3">3 Members</option>
                   <option value="4">4 Members</option>
+                  <option value="3">3 Members</option>
                   <option value="5">5 Members</option>
                 </select>
               </div>
             </div>
+
+            {/* Dynamic Team Member Names */}
+            {parseInt(formData.teamSize) > 1 && (
+              <div style={{marginTop: 24}}>
+                <label style={{display:'block', marginBottom: 12, fontWeight: 600, fontSize: 16, color: '#374151'}}>
+                  Team Member Names
+                </label>
+                <div style={{display:'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 16}}>
+                  {teamMembers.map((member, index) => (
+                    <div key={index}>
+                      <label style={{display:'block', marginBottom: 8, fontWeight: 500, fontSize: 14, color: '#6b7280'}}>
+                        Member {index + 2} Name
+                      </label>
+                      <input
+                        type="text"
+                        value={member}
+                        onChange={(e) => handleTeamMemberChange(index, e.target.value)}
+                        placeholder={`Enter team member ${index + 2} name`}
+                        style={{width:'100%', padding:'12px 16px', border:'1px solid #d1d5db', 
+                          borderRadius:8, fontSize:16, outline:'none', transition:'border-color 0.2s', background:'white'}}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:500, fontSize:14, color:'#374151'}}>
