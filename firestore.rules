@@ -3,62 +3,74 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Allow users to read and write their own user document
+    // Helper function to check user role (trim whitespace)
+    function hasRole(userId, role) {
+      let userRole = get(/databases/$(database)/documents/users/$(userId)).data.role;
+      return userRole == role || userRole.trim() == role;
+    }
+
+    // Users collection - role-based access
     match /users/{userId} {
-      allow read, write: if request.auth.uid == userId;
+      allow read: if request.auth.uid == userId;
+      allow update: if request.auth.uid == userId;
+      allow read, write: if hasRole(request.auth.uid, 'admin');
       allow create: if request.auth.uid != null;
     }
-    
-    // Allow anyone to read public data (like projects, activities, gallery)
+
+    // Notifications collection - ADMINS CAN READ/WRITE, USERS CAN READ
+    match /notifications/{document=**} {
+      allow read, write, create, delete: if hasRole(request.auth.uid, 'admin');
+      allow read: if request.auth.uid != null;
+    }
+
+    // Projects collection
     match /projects/{document=**} {
       allow read: if true;
-      allow write: if request.auth.uid != null && hasRole(request.auth.uid, 'admin');
+      allow write: if hasRole(request.auth.uid, 'admin');
     }
-    
+
+    // Activities collection
     match /activities/{document=**} {
       allow read: if true;
-      allow write: if request.auth.uid != null && hasRole(request.auth.uid, 'admin');
+      allow write: if hasRole(request.auth.uid, 'admin');
     }
-    
+
+    // Gallery collection
     match /gallery/{document=**} {
       allow read: if true;
-      allow write: if request.auth.uid != null && hasRole(request.auth.uid, 'admin');
+      allow write: if hasRole(request.auth.uid, 'admin');
     }
-    
-    match /team/{document=**} {
-      allow read: if true;
-      allow write: if request.auth.uid != null && hasRole(request.auth.uid, 'admin');
-    }
-    
-    // Allow users to read their own field visits
+
+    // Field visits
     match /fieldVisits/{visitId} {
       allow read: if request.auth.uid == resource.data.userId || hasRole(request.auth.uid, 'admin');
-      allow create: if request.auth.uid == request.resource.data.userId;
+      allow create: if request.auth.uid != null;
       allow update, delete: if request.auth.uid == resource.data.userId || hasRole(request.auth.uid, 'admin');
     }
-    
-    // Allow authenticated users to read and write to their participation records
+
+    // Participations
     match /participations/{participationId} {
       allow read: if request.auth.uid == resource.data.userId || hasRole(request.auth.uid, 'admin');
-      allow create: if request.auth.uid == request.resource.data.userId;
+      allow create: if request.auth.uid != null;
       allow update, delete: if request.auth.uid == resource.data.userId || hasRole(request.auth.uid, 'admin');
     }
-    
-    // Contact form submissions - allow anyone to create, admins to read/delete
-    match /contacts/{document=**} {
+
+    // Contact form submissions
+    match /contact_us/{document=**} {
       allow create: if true;
-      allow read, delete: if request.auth.uid != null && hasRole(request.auth.uid, 'admin');
+      allow read, delete: if hasRole(request.auth.uid, 'admin');
     }
-    
-    // Notifications - allow users to read their own
-    match /notifications/{notificationId} {
-      allow read: if request.auth.uid == resource.data.userId;
-      allow create, delete: if request.auth.uid != null && hasRole(request.auth.uid, 'admin');
+
+    // GRINOVA registrations - allow anyone to create, admins to read/delete
+    match /Grinova/{document=**} {
+      allow create: if true;
+      allow read, delete: if hasRole(request.auth.uid, 'admin');
     }
-  }
-  
-  // Helper function to check if user is admin
-  function hasRole(userId, role) {
-    return get(/databases/$(database)/documents/users/$(userId)).data.role == role;
+
+    // Team
+    match /team/{document=**} {
+      allow read: if true;
+      allow write: if hasRole(request.auth.uid, 'admin');
+    }
   }
 }

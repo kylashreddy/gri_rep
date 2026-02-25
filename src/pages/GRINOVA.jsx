@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiCalendar, FiMapPin, FiUsers, FiAward, FiMail, FiArrowLeft } from 'react-icons/fi'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { db } from '../config/firebase'
 
 export default function GRINOVA(){
   const [formData, setFormData] = useState({
@@ -29,15 +31,12 @@ export default function GRINOVA(){
     setIsLoading(true)
     
     try {
-      // Submit to Google Apps Script with no-cors mode
-      await fetch('https://script.google.com/macros/s/AKfycbyTV9qMLlBVCqIGniW_CPWHNw6-Yp7U5tJk881nLXZdJwtOHaCfbJhFb65ZBLdZqyCH/exec', {
-        method: 'POST',
-        redirect: 'follow',
-        body: JSON.stringify(formData)
+      // Submit to Firebase Firestore - Grinova collection
+      await addDoc(collection(db, 'Grinova'), {
+        ...formData,
+        timestamp: serverTimestamp()
       })
       
-      // Since Google Apps Script returns opaque response, we assume success after the request completes
-      // The data will be stored in the Google Sheet
       setSubmitted(true)
     } catch (error) {
       console.error('Error submitting form:', error)
